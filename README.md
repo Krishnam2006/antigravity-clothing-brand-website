@@ -14,4 +14,5 @@ A modern and aesthetic clothing brand website designed for a luxury streetwear b
 - JavaScript
 
 ## Live Demo
-Add GitHub Pages link here
+## 🌐 Live Demo
+👉 Main App:file:///C:/Users/HP/Downloads/mosaic/index.html#summer
