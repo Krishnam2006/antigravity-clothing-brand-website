@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | MOSAIC</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .checkout-container {
+            max-width: 800px;
+            margin: 5rem auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .form-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+        }
+        .order-summary {
+            background: rgba(223, 27, 27, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--accent-color);
+        }
+        .cart-item-preview {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 0.5rem;
+        }
+        .success-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+        .success-overlay.active {
+            display: flex;
+        }
+        .success-icon {
+            font-size: 5rem;
+            color: #4CAF50;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" style="justify-content: center;">
+        <h1 class="logo">MOSAIC <span style="font-size:1rem;font-weight:400;letter-spacing:1px;color:#aaa">| SECURE CHECKOUT</span></h1>
+    </nav>
+
+    <div class="checkout-container">
+        <!-- Payment Form -->
+        <div class="form-section">
+            <h2 style="margin-bottom: 1.5rem;">Payment Gateway</h2>
+            <form id="payment-form">
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" required placeholder="John Doe">
+                </div>
+                <div class="input-group">
+                    <label>Card Number</label>
+                    <input type="text" required placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <div class="input-group" style="flex: 1;">
+                        <label>Expiry (MM/YY)</label>
+                        <input type="text" required placeholder="12/25" maxlength="5">
+                    </div>
+                    <div class="input-group" style="flex: 1;">
+                        <label>CVV</label>
+                        <input type="password" required placeholder="XXX" maxlength="3">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="margin-top: 1rem;">Pay Now</button>
+            </form>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <h2 style="margin-bottom: 1.5rem;">Order Summary</h2>
+            <div id="checkout-items" style="margin-bottom: 1.5rem;">
+                <!-- Injected via JS -->
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold; margin-top: 1rem; border-top: 2px solid #555; padding-top: 1rem;">
+                <span>Total to Pay:</span>
+                <span id="checkout-total">₹0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Screen -->
+    <div class="success-overlay" id="success-screen">
+        <div class="success-icon">✓</div>
+        <h1 style="font-family: 'Outfit'; font-size: 3rem; margin-bottom: 1rem;">ORDER CONFIRMED</h1>
+        <p style="color: #aaa; margin-bottom: 2rem;">You're ready to slay.</p>
+        <button class="btn-primary" style="width: auto; padding: 1rem 3rem;" onclick="window.location.href='index.html'">Return to Store</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('mosaicCart')) || [];
+            const itemsContainer = document.getElementById('checkout-items');
+            const totalEl = document.getElementById('checkout-total');
+            
+            if (cart.length === 0) {
+                alert('Your cart is empty! Redirecting to shop.');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price;
+                itemsContainer.innerHTML += `
+                    <div class="cart-item-preview">
+                        <span>${item.name} (${item.size})</span>
+                        <span>₹${item.price.toLocaleString('en-IN')}</span>
+                    </div>
+                `;
+            });
+            
+            totalEl.innerText = '₹' + total.toLocaleString('en-IN');
+
+            document.getElementById('payment-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Clear cart on success
+                localStorage.removeItem('mosaicCart');
+                document.getElementById('success-screen').classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | MOSAIC</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <h1 class="logo" style="margin-bottom: 2rem;">MOSAIC</h1>
+            <h2>Welcome Back</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required placeholder="enter your email">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required placeholder="enter your password">
+                </div>
+                <button type="submit" class="btn-primary">Sign In</button>
+            </form>
+            <p style="margin-top: 1.5rem; color: #888; font-size: 0.9rem;">
+                Not a member? <a href="#" style="color: var(--accent-color);">Join the cult</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simple redirect to home page
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
