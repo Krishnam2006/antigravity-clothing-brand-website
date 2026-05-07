@@ -15,4 +15,4 @@ A modern and aesthetic clothing brand website designed for a luxury streetwear b
 
 ## Live Demo
 ## 🌐 Live Demo
-👉 Main App:file:///C:/Users/HP/Downloads/mosaic/index.html#summer
+👉 Main App: file:///C:/Users/HP/Downloads/mosaic/index.html#summer
