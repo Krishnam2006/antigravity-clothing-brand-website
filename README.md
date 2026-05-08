@@ -1,4 +1,4 @@
-# Antigravity Clothing Brand Website 👕
+# Clothing Brand Website 👕
 
 A modern and aesthetic clothing brand website designed for a luxury streetwear brand.
 
